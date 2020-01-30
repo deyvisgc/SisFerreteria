@@ -32,6 +32,7 @@ class CategoriaController extends Controller
         return response()->json($cate);
     }
     public function update(Request $request,$id){
+
         $cate = Modelos\Categorias::find($id);
         $cate->Nombre_Categoria=$request->get('Nom_Cate');
         $cate->save();
