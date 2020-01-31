@@ -114,4 +114,8 @@ class ProductoRepository implements ProductoInterface
         }
         return $data;
     }
+    public function listarproductoprincipal(){
+        return DB::select("select p.Nombre_Productos,p.Precio_Productos,im.ruta_imagen,p.idProductos from productos as p, imagenes as im where p.rango BETWEEN 3 AND 5 and p.Imagenes_idImagenes=im.idImagenes");
+    }
+
 }

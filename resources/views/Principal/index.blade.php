@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="img/express-favicon.png" type="image/x-icon" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>RedCaynne Re</title>
@@ -24,6 +25,7 @@
     <link href="vendors/bootstrap-selector/bootstrap-select.css" rel="stylesheet">
     <link href="vendors/bootatrap-date-time/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="vendors/owl-carousel/assets/owl.carousel.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
 
     <link href="css/style.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
@@ -371,38 +373,19 @@
 <section class="service_area">
     <div class="container">
         <div class="row">
+            @foreach($vista as $vi)
             <div class="col-md-3 col-sm-6">
                 <div class="service_item">
-                    <img src="img/service-icon/service-1.png" alt="">
-                    <h3>Pizzas</h3>
-                    <p>Lorem ipsum dolor sit amet, cont tempor incididunt ut labore dolor adipiscing elit, sed do eiusmod et  magna aliquaquat officia.</p>
-                    <a class="read_mor_btn" href="#">Read More</a>
+                    <img src="{{asset('Imagenes/Servicio/'.$vi->imagen_servicios)}}" height="128px" width="128px" style="background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;" alt="" class="rounded-circle">
+                    <h3>{{$vi->nombre_tipo_servicio}}</h3>
+                    <p>{{$vi->descrip_servici}}</p>
+                    <a class="read_mor_btn" href="#">Mas detalles</a>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="service_item">
-                    <img src="img/service-icon/service-2.png" alt="">
-                    <h3>Coffee</h3>
-                    <p>Lorem ipsum dolor sit amet, cont tempor incididunt ut labore dolor adipiscing elit, sed do eiusmod et  magna aliquaquat officia.</p>
-                    <a class="read_mor_btn" href="#">Read More</a>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="service_item">
-                    <img src="img/service-icon/service-3.png" alt="">
-                    <h3>Burgers</h3>
-                    <p>Lorem ipsum dolor sit amet, cont tempor incididunt ut labore dolor adipiscing elit, sed do eiusmod et  magna aliquaquat officia.</p>
-                    <a class="read_mor_btn" href="#">Read More</a>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="service_item">
-                    <img src="img/service-icon/service-4.png" alt="">
-                    <h3>Drinks</h3>
-                    <p>Lorem ipsum dolor sit amet, cont tempor incididunt ut labore dolor adipiscing elit, sed do eiusmod et  magna aliquaquat officia.</p>
-                    <a class="read_mor_btn" href="#">Read More</a>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -450,74 +433,34 @@
 <section class="our_feature_area">
     <div class="container">
         <div class="s_black_title">
-            <h3>Book a</h3>
-            <h2>Table</h2>
+            <h3>Nuestros Productos</h3>
+            <h2>Banderas</h2>
         </div>
         <div class="feature_slider">
+            @foreach($produc as $prod)
             <div class="item">
                 <div class="feature_item">
                     <div class="feature_item_inner">
-                        <img src="img/feature/feature-1.jpg" alt="">
+                        @if($prod->ruta_imagen=='')
+                            <img src="img/feature/feature-1.jpg" alt="">
+                        @elseif($prod->ruta_imagen)
+                            <img src="{{asset('Imagenes/Productos/'.$prod->ruta_imagen)}}"  height="320px" width="360px" alt="">
+                        @endif
                         <div class="icon_hover">
-                            <i class="fa fa-search"></i>
-                            <i class="fa fa-shopping-cart"></i>
+                            <i  class="fa fa-search"></i>
+                            <i onclick="Reservar({{$prod->idProductos}})" class="fa fa-shopping-cart"></i>
                         </div>
                     </div>
                     <div class="title_text">
-                        <div class="feature_left"><a href="table.html"><span>Grilled Chicken</span></a></div>
+                        <div class="feature_left"><a href="table.html"><span>{{$prod->Nombre_Productos}}</span></a></div>
                         <div class="restaurant_feature_dots"></div>
-                        <div class="feature_right">$32</div>
+                        <div class="feature_right">$ {{$prod->Precio_Productos}}</div>
                     </div>
                 </div>
             </div>
-            <div class="item">
-                <div class="feature_item">
-                    <div class="feature_item_inner">
-                        <img src="img/feature/feature-2.jpg" alt="">
-                        <div class="icon_hover">
-                            <i class="fa fa-search"></i>
-                            <i class="fa fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                    <div class="title_text">
-                        <div class="feature_left"><a href="table"><span>Lasagne Pasta</span></a></div>
-                        <div class="restaurant_feature_dots"></div>
-                        <div class="feature_right">$16</div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="feature_item">
-                    <div class="feature_item_inner">
-                        <img src="img/feature/feature-3.jpg" alt="">
-                        <div class="icon_hover">
-                            <i class="fa fa-search"></i>
-                            <i class="fa fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                    <div class="title_text">
-                        <div class="feature_left"><a href="table"><span>Hamburger</span></a></div>
-                        <div class="restaurant_feature_dots"></div>
-                        <div class="feature_right">$25</div>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="feature_item">
-                    <div class="feature_item_inner">
-                        <img src="img/feature/feature-1.jpg" alt="">
-                        <div class="icon_hover">
-                            <i class="fa fa-search"></i>
-                            <i class="fa fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                    <div class="title_text">
-                        <div class="feature_left"><a href="table"><span>Grilled Chicken.</span></a></div>
-                        <div class="restaurant_feature_dots"></div>
-                        <div class="feature_right">$32</div>
-                    </div>
-                </div>
-            </div>
+
+
+            @endforeach
         </div>
     </div>
 </section>
@@ -1097,10 +1040,8 @@
         </div>
     </div>
 </footer>
+@include('SisAdmin.modals.modalsPrincipal')
 <!--================End Recent Blog Area =================-->
-
-
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="js/jquery-2.1.4.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -1121,6 +1062,8 @@
 <script src="vendors/isotope/isotope.pkgd.min.js"></script>
 <script src="vendors/countdown/jquery.countdown.js"></script>
 <script src="vendors/js-calender/zabuto_calendar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script src="https://momentjs.com/downloads/moment.js"></script>
 <!--gmaps Js-->
 <!--        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>-->
 <!--        <script src="js/gmaps.min.js"></script>-->
@@ -1128,5 +1071,79 @@
 
 <!--        <script src="js/video_player.js"></script>-->
 <script src="js/theme.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#datepicker").datepicker({
+            format: "yyyy/mm/dd",
+            language: "es",
+            autoclose: true,
+            todayHighlight: true,
+        }).datepicker('update', new Date());
+        $("#datepicker").on('changeDate',function (ev) {
+            var date =$('#fecha_reser').val();
+            dias = 7;
+            fechaMoment = moment(date,'YYYY-MM-DD').add(dias, 'day');
+            $('#fecha_venci').val(fechaMoment.format('YYYY-MM-DD'))
+        });
+
+        $('#selecdniyruc').change(function (e) {
+            var rucorddni=$('#selecdniyruc').val();
+            if(rucorddni==1){
+                document.querySelector('#labelruc').innerText = 'DNI';
+            }else{
+                document.querySelector('#labelruc').innerText = 'RUC';
+            }
+        });
+    });
+    function Reservar(id) {
+        var data={};
+        $('#CrerServicios').modal('show');
+        $('#Buscardni').click(function (e) {
+            var rucorddni=$('#selecdniyruc').val();
+            if(rucorddni==1){
+                data.dni=$('#dniOruc').val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url:'{{url('Buscardni')}}',
+                    type:'post',
+                    dataType:'json',
+                    data:data,
+                    success:function (response) {
+                        alert();
+                        $('#nombres').val(response.result['nombres']);
+                        $('#Apellidos').val(response.result['apellidos']);
+                        console.log();
+                    }
+
+                })
+            }else{
+                data.ruc=$('#dniOruc').val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url:'{{url('Buscarruc')}}',
+                    type:'post',
+                    dataType:'json',
+                    data:data,
+                    success:function (response) {
+                        console.log(response);
+                        $('#razon_social').val(response['nombre_o_razon_social'])
+                        $('#direccion').val(response['direccion'])
+                    }
+
+                })
+            }
+
+        });
+    }
+</script>
+
 </body>
 </html>

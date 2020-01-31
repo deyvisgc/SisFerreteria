@@ -30,4 +30,10 @@ Route::get('detalleAccesorios/{id}','Sisadmin\AccesorioController@detalleAccesor
 Route::post('DeleteAccesXPro','Sisadmin\AccesorioController@DeleteAccesXPro');
 //ofertas
 Route::resource('Ofertas','Sisadmin\OfertaController');
+//servicios
+Route::resource('Servicios','Sisadmin\ServicioController');
+Route::get('/','Sisadmin\ServicioController@listarserviciosprincipal');
+//buscar dni
+Route::post('Buscardni','Principal\BuscarController@buscardni');
+Route::post('Buscarruc','Principal\BuscarController@Buscarruc');
 

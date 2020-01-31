@@ -53,4 +53,5 @@ public function show($id){
 public function actualizar(Request $request,$id){
     return response()->json($this->repository->Actualizar($request,$id));
 }
+
 }
